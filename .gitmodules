@@ -1,0 +1,6 @@
+[submodule "felix_junot_front"]
+	path = felix_junot_front
+	url = https://github.com/Max75020/felix_junot_front
+[submodule "felix_junot_back"]
+	path = felix_junot_back
+	url = https://github.com/Max75020/felix_junot_back
