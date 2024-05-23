@@ -1,27 +1,34 @@
-FROM php:8.3.7-apache 
+# Dockerfile pour le back-end Symfony
+FROM php:8.3.7-apache
 
-RUN echo  "ServerName localhost" >> /etc/apache2/apache2.conf 
+# Installation des dépendances nécessaires
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    libicu-dev \
+    libzip-dev \
+    libpng-dev \
+    libonig-dev \
+    libxslt-dev
 
-RUN apt-get update \ 
-	&& apt-get install -qq -y --no-install-recommends \ 
-	cron \ 
-	vim \ 
-	locales coreutils apt-utils git libicu-dev g++ libpng-dev libxml2-dev libzip-dev libonig-dev libxslt-dev; 
+# Installation des extensions PHP nécessaires
+RUN docker-php-ext-install \
+    pdo_mysql \
+    zip \
+    intl \
+    opcache \
+    mbstring \
+    gd \
+    xsl
 
-RUN echo  "en_US.UTF-8 UTF-8" > /etc/locale.gen && \ 
-	echo  "fr_FR.UTF-8 UTF-8" >> /etc/locale.gen && \ 
-	locale-gen 
+# Installation de Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-RUN curl -sSk https ://getcomposer.org/installer | php -- --disable-tls && \ 
-	mv composer.phar /usr/local/bin/composer 
+# Copie du code source Symfony dans le conteneur
+COPY ./felix_junot_back /var/www/html
 
-RUN docker-php-ext-configure intl 
-RUN docker-php-ext-install pdo pdo_mysql mysqli gd opcache intl zip calendrier dom mbstring zip gd xsl && a2enmod réécriture 
-RUN pecl install apcu && docker-php-ext-enable apcu 
+# Installation des dépendances du projet avec Composer
+RUN composer install --no-scripts --no-autoloader --no-dev
 
-ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr /local/bin/ 
-
-RUN chmod +x /usr/local/bin/install-php-extensions && sync && \ 
-	install-php-extensions amqp 
-
-WORKDIR /var/www
+# Génération de l'autoloader de Composer
+RUN composer dump-autoload --optimize --classmap-authoritative
