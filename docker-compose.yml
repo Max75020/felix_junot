@@ -1,5 +1,4 @@
 services:
-    # Mysql database container
     db:
         container_name: db_symfony
         image: mysql:8.0
@@ -16,7 +15,6 @@ services:
             - felix
         restart: always
 
-    # phpmyadmin container
     phpmyadmin:
         container_name: phpmyadmin
         image: phpmyadmin
@@ -30,22 +28,16 @@ services:
             - felix
         restart: always
 
-    # Symfony apache project container
     www:
-        build: ./docker/php
+        build:
+            context: .
+            dockerfile: docker/php/Dockerfile
         container_name: symfony
         ports:
           - "8741:80"
         volumes:
             - ./docker/php/vhosts:/etc/apache2/sites-enabled
             - ./felix_junot_back:/var/www
-        develop:
-          watch:
-          - path: ./felix_junot_back/
-            target: /src/
-            action: sync
-          - path: ./felix_junot_front/package.json
-            action: rebuild
         restart: always
         networks:
             - felix
@@ -55,13 +47,6 @@ services:
         build: 
             context: ./felix_junot_front
             dockerfile: Dockerfile
-        develop:
-          watch:
-          - path: ./felix_junot_front/
-            target: /src/
-            action: sync
-          - path: ./felix_junot_front/package.json
-            action: rebuild
         ports:
           - "3000:3000"
         restart: always
