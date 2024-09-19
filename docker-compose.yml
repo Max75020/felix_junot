@@ -36,8 +36,10 @@ services:
         ports:
           - "8741:80"
         volumes:
-            - ./docker/php/vhosts:/etc/apache2/sites-enabled
-            - ./felix_junot_back:/var/www
+          - ./docker/php/vhosts:/etc/apache2/sites-enabled:cached
+          - ./felix_junot_back/src:/var/www/src:cached
+          - ./felix_junot_back/templates:/var/www/templates:cached
+          - ./felix_junot_back/public:/var/www/public:cached
         restart: always
         networks:
             - felix
