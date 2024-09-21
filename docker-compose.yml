@@ -40,6 +40,8 @@ services:
           - ./felix_junot_back/src:/var/www/src:cached
           - ./felix_junot_back/templates:/var/www/templates:cached
           - ./felix_junot_back/public:/var/www/public:cached
+          - ./felix_junot_back/config:/var/www/config:cached
+          - ./felix_junot_back/tests:/var/www/tests:cached
         restart: always
         networks:
             - felix
