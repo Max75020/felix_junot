@@ -44,6 +44,9 @@ services:
           - ./felix_junot_back/tests:/var/www/tests:cached
           - ./felix_junot_back/migrations:/var/www/migrations:cached
           - ./felix_junot_back/composer.json:/var/www/composer.json:cached
+          - ./felix_junot_back/.env.test:/var/www/.env.test:cached
+          - ./felix_junot_back/phpunit.xml:/var/www/phpunit.xml:cached
+          - ./felix_junot_back/phpunit.xml.dist:/var/www/phpunit.xml.dist:cached
         restart: always
         networks:
             - felix
