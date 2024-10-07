@@ -58,6 +58,9 @@ services:
             dockerfile: Dockerfile
         ports:
           - "3000:3000"
+        volumes:
+          - ./felix_junot_front/src:/app/src:cached
+          - ./felix_junot_front/public:/app/public:cached
         restart: always
         networks:
             - felix
