@@ -61,6 +61,8 @@ services:
         volumes:
           - ./felix_junot_front/src:/app/src:cached
           - ./felix_junot_front/public:/app/public:cached
+        environment:
+          - CHOKIDAR_USEPOLLING=true  # Ajout pour activer le mode polling
         restart: always
         networks:
             - felix
