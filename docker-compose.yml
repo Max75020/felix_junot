@@ -58,11 +58,12 @@ services:
             dockerfile: Dockerfile
         ports:
           - "3000:3000"
+        command: npm start
         volumes:
-          - ./felix_junot_front/src:/app/src:cached
-          - ./felix_junot_front/public:/app/public:cached
+          - ./felix_junot_front:/app
         environment:
           - CHOKIDAR_USEPOLLING=true  # Ajout pour activer le mode polling
+          - FAST_REFRESH=true
         restart: always
         networks:
             - felix
