@@ -47,6 +47,7 @@ services:
           - ./felix_junot_back/.env.test:/var/www/.env.test:cached
           - ./felix_junot_back/phpunit.xml:/var/www/phpunit.xml:cached
           - ./felix_junot_back/phpunit.xml.dist:/var/www/phpunit.xml.dist:cached
+          - ./felix_junot_back/.env:/var/www/.env:cached
         restart: always
         networks:
             - felix
