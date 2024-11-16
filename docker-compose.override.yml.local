@@ -1,0 +1,18 @@
+services:
+  db:
+    ports:
+      - "3306:3306"  # Accès à la base de données en local
+
+  phpmyadmin:
+    ports:
+      - "8080:80"  # Interface phpMyAdmin sur http://localhost:8080
+
+  www:
+    ports:
+      - "8741:80"  # Serveur Symfony disponible sur http://localhost:8741
+
+  react-app:
+    ports:
+      - "3000:80"  # Expose React sur http://localhost:3000
+    volumes:
+      - ./felix_junot_front/build:/usr/share/nginx/html:cached  # Monte le dossier 'build' généré localement
