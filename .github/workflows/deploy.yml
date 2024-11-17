@@ -25,4 +25,4 @@ jobs:
     # Étape 3 : Déployer sur le serveur
     - name: Deploy to Server
       run: |
-        ssh root@<your-server-ip> 'bash -s' < deploy.sh
+        ssh root@161.35.220.102 'bash -s' < deploy.sh
