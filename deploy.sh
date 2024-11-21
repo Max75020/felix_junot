@@ -10,6 +10,10 @@ cd "$PROJECT_DIR" || exit
 echo ">>> Récupération des dernières modifications depuis GitHub..."
 git pull origin main
 
+# Mettre à jour les submodules
+echo ">>> Mise à jour des submodules..."
+git submodule update --init --recursive
+
 # Construire et redémarrer les conteneurs Docker
 echo ">>> Construction et redémarrage des conteneurs Docker..."
 docker-compose down
