@@ -14,5 +14,3 @@ services:
   react-app:
     ports:
       - "3000:80"  # Expose React sur http://localhost:3000
-    volumes:
-      - ./felix_junot_front/build:/usr/share/nginx/html:cached  # Monte le dossier 'build' généré localement
