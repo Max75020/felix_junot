@@ -1,0 +1,4 @@
+services:
+  phpmyadmin:
+    volumes:
+      - ./config.inc.php:/etc/phpmyadmin/config.inc.php
